@@ -1,0 +1,2 @@
+# imageFiltering
+Assignment 2. Image Filtering using OpenCv I tried some common filters. 1. Original Picture 2. Inverted picture-Invert filter is actually very easy to implement. Everyone has used this filter at some point or the other to make their hair turn white.(Just for Fun) Inverted the pixel value by using cv2.bitwise_not() function  3.Sepia- one of the most commonly used filters in image editing. Sepia adds a warm brown effect to photos. A vintage, calm and nostalgic effect is added to images. #cv #design #design #illustration #ML #ai #dataanalytics #datascience
