@@ -1,0 +1,103 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
+
+import os
+from google.colab import drive
+import cv2
+import numpy as np
+import scipy
+drive.mount("/content/drive",force_remount=True)
+
+data_dir = '/content/drive/My Drive'
+
+
+# In[2]:
+
+
+get_ipython().run_line_magic('pylab', 'inline')
+im = imread(f'{data_dir}/UNCC.jpg')
+
+
+# In[3]:
+
+
+fig = figure(0, (6,6))
+imshow(im); title('Original pic!');
+
+
+# In[3]:
+
+
+
+
+
+# In[4]:
+
+
+# invert filter
+def invert(im):
+    inv = cv2.bitwise_not(im)
+    return inv
+
+ 
+
+
+
+# In[5]:
+
+
+img=invert(im)
+filename = '/content/drive/My Drive/invert.jpg'
+# Using cv2.imwrite() method
+# Saving the image
+cv2.imwrite(filename, img)
+imshow(img); title('Inverted pic!');
+
+
+# In[6]:
+
+
+#colour pencil sketch effect
+def pencil_sketch_col(img):
+    #inbuilt function to create sketch effect in colour and greyscale
+    sk_gray, sk_color = cv2.pencilSketch(img, sigma_s=60, sigma_r=0.07, shade_factor=0.1) 
+    return  sk_color
+
+
+# In[7]:
+
+
+img_1=pencil_sketch_col(im)
+filename = '/content/drive/My Drive/pencil_sketch_col.jpg'
+# Using cv2.imwrite() method
+# Saving the image
+cv2.imwrite(filename, img_1)
+
+
+# In[8]:
+
+
+#sepia effect
+def sepia(img):
+    img_sepia = np.array(img, dtype=np.float64) # converting to float to prevent loss
+    img_sepia = cv2.transform(img_sepia, np.matrix([[0.272, 0.534, 0.131],
+                                    [0.349, 0.686, 0.168],
+                                    [0.393, 0.769, 0.189]])) # multipying image with special sepia matrix
+    img_sepia[np.where(img_sepia > 255)] = 255 # normalizing values greater than 255 to 255
+    img_sepia = np.array(img_sepia, dtype=np.uint8)
+    return img_sepia
+
+
+# In[9]:
+
+
+img_3=sepia(im)
+filename = '/content/drive/My Drive/sepia.jpg'
+# Using cv2.imwrite() method
+# Saving the image
+cv2.imwrite(filename, img_3)
+imshow(img_3); title('Sepia pic!');
+
